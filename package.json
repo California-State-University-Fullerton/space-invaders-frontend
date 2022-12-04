@@ -1,0 +1,53 @@
+{
+  "name": "finalproject",
+  "version": "1.0.0",
+  "description": "final project for blockchain class 559",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "hardhat": "node --require esm node_modules/.bin/hardhat",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1",
+    "start": "http-server ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamarthHalyal/space-invaders-blockchain-NFT-GameFi.git"
+  },
+  "keywords": [
+    "blockchain",
+    "solidity",
+    "nft"
+  ],
+  "authors": [
+    "samarthhalyal",
+    "harinkhakhi",
+    "pallavi khedle",
+    "vinayshah"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SamarthHalyal/space-invaders-blockchain-NFT-GameFi/issues"
+  },
+  "homepage": "https://github.com/SamarthHalyal/space-invaders-blockchain-NFT-GameFi#readme",
+  "dependencies": {
+    "browser-sync": "^2.27.10",
+    "browserify": "^17.0.0",
+    "buffer": "^6.0.3",
+    "ethers": "^5.7.2",
+    "fs": "^0.0.1-security",
+    "hardhat": "^2.12.2",
+    "http-server": "^14.1.1",
+    "ipfs": "^0.65.0",
+    "ipfs-http-client": "^59.0.0",
+    "lstat": "^1.0.0",
+    "openzeppelin-solidity": "^1.12.0",
+    "react": "^18.2.0",
+    "truffle-hdwallet-provider": "^1.0.6",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
+  }
+}

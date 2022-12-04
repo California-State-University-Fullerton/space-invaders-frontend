@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <style>
+        body {
+            background: rgb(164,219,232);
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+          
+        [data-tab-info] {
+            display: none;
+        }
+          
+        .active[data-tab-info] {
+            display: block;
+        }
+          
+        .tab-content {
+            font-size: 30px;
+            /* font-family: sans-serif; */
+            font-weight: bold;
+            color: rgb(82, 75, 75);
+        }
+          
+        .tabs {
+            font-size: 30px;
+            color: rgb(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            padding-left: 25px;
+            padding-right: 25px;
+            margin: 0;
+        }
+          
+        .tabs span {
+            background: rgb(0, 0, 0);
+            padding: 10px;
+            border: 1px solid rgb(255, 255, 255);
+            border-radius: 8px;
+        }
+          
+        .tabs span:hover {
+            background: rgb(59, 183, 221);
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+    <!-- <link rel="icon" href="favicon.ico"> -->
+    <!-- <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    />
+    <script
+      language="javascript"
+      type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script> -->
+    <!-- <script src="myShip.js"></script>
+    <script src="shot.js"></script>
+    <script src="alien.js"></script>
+    <script src="laser.js"></script>
+    <script src="redAlien.js"></script>
+    <script src="sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />  -->
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+    />
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    <script language="javascript" type="text/javascript" src="auction_abi.js"></script>
+    <script language="javascript" type="text/javascript" src="marketplace_abi.js"></script>
+    <script language="javascript" type="text/javascript" src="NFT_abi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ipfs-core/dist/index.min.js"></script>
+    <meta charset="utf-8" />
+</head>
+  
+<body>
+    <div class="tabs">
+        <span data-tab-value="#tab_1">NFT Market</span>
+        <span data-tab-value="#tab_2">Auction Market</span>
+        <span data-tab-value="#tab_3">Game</span>
+    </div>
+  
+    <div class="tab-content">
+        <div class="tabs__tab active" id="tab_1" data-tab-info>
+            <p>1</p>
+
+            <div class="nft_creation">
+                <input/>
+                <button class="create_nft btn btn-success ">Create NFT</button>
+            </div>
+
+            <div>
+                <button class="get_nft btn btn-warning ">Get NFT</button>
+            </div>
+        </div>
+        <div class="tabs__tab" id="tab_2" data-tab-info>
+            <p>2</p>
+
+            <input type="text" id="artifacts" name="Artifacts">
+            <button type="button">Select Artifacts!</button>
+            
+            <br><button type="button">Start Bid</button> 
+            <input type="text" id="time" name="time">
+
+            <br>
+            <input type=="text" class="bid_amount" name="Artifacts">
+            <button class="bid_button btn btn-success" type="button">Bid</button>
+  
+            <br>
+            <button class="getHighestBid btn btn-success" type="button">Get Highest</button>
+        </div>
+        <div class="tabs__tab" id="tab_3" data-tab-info>
+            <p>3</p>
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+        const tabs = document.querySelectorAll('[data-tab-value]')
+        const tabInfos = document.querySelectorAll('[data-tab-info]')
+  
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document
+                    .querySelector(tab.dataset.tabValue);
+  
+                tabInfos.forEach(tabInfo => {
+                    tabInfo.classList.remove('active')
+                })
+                target.classList.add('active');
+            })
+        })
+    </script>
+    <script>
+        var node, NFT, accounts, deployer, MarketPlace, Auction;
+        const createNFTButton = document.querySelector('.create_nft');
+        const getNFTButton = document.querySelector('.get_nft');
+        const bidButton = document.querySelector('.bid_button');
+        const highestBidBtn = document.querySelector('.getHighestBid');
+
+        async function main () {
+        const node = await window.IpfsCore.create()
+        // Ready to use!
+        // See https://github.com/ipfs/js-ipfs#core-api
+        }
+
+        async function startApp() {
+            var AuctionAddress = "0x94Cf6DFC5A992A987e4dF86B4E2AE4fA23897784";
+            Auction = new web3.eth.Contract(auction_abi, AuctionAddress);  
+
+            var MarketPlaceAddress = "0xB0a782Fa7B16397443F93626DE73Ce96BBdD950c";
+            MarketPlace = new web3.eth.Contract(marketplace_abi, MarketPlaceAddress);
+
+            var NFTAddress = "0xcf163e8bE1D2673388211AEC5EdEE53Dd913ECE1";
+            NFT = new web3.eth.Contract(NFT_abi, NFTAddress);
+
+            console.log("Created contract handles.");
+        }
+
+        async function getNft() {
+            // Request account access if needed
+            accounts = await ethereum.enable();
+            // Acccounts now exposed
+            deployer = accounts[0];
+
+            let txResponse = await NFT.methods.tokenURI(0).call({from: deployer})
+            .then(function(result) {
+                console.log(result);
+            });
+        }
+
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                await window.ethereum.request({method: 'eth_requestAccounts'});
+                window.web3 = new Web3(ethereum);
+                try {
+                    // Request account access if needed
+                    accounts = await ethereum.enable();
+                    // Acccounts now exposed
+                    deployer = accounts[0];
+                    startApp()
+                } catch (error) {
+                    // User denied account access...
+                }
+            }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                console.log("2");
+                window.web3 = new Web3(web3.currentProvider);
+                // Acccounts always exposed
+                accounts = web3.eth.accounts;
+                deployer = accounts[0];
+                startApp()
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        });
+
+        createNFTButton.addEventListener('click', async ()  =>  {
+            console.log("NFT Button Clicked");
+
+            // Request account access if needed
+            accounts = await ethereum.enable();
+            // Acccounts now exposed
+            deployer = accounts[0];
+
+            await NFT.methods.mintNFT("TokenURI").send({from: deployer})
+            .then(function(receipt) {
+                console.log(receipt);
+            });
+            // await txResponse.wait(1);
+        })
+
+        getNFTButton.addEventListener('click', () => {
+            getNft();
+        })
+
+        bidButton.addEventListener('click', async () => {
+            console.log("Bid Button Clicked");
+            // Request account access if needed
+            accounts = await ethereum.enable();
+            // Acccounts now exposed
+            deployer = accounts[0];
+            const bidAmount = document.querySelector('.bid_amount').value;
+            await Auction.methods.bid().send({from: deployer,
+                                              value: bidAmount})
+            .then(function(receipt) {
+                console.log(receipt);
+            });
+        })
+
+        highestBidBtn.addEventListener('click', async () => {
+            // Request account access if needed
+            accounts = await ethereum.enable();
+            // Acccounts now exposed
+            deployer = accounts[0];
+
+            let txResponse = await Auction.methods.getHighestBid()
+            .call({from: deployer})
+            .then(function(result) {
+                console.log(result);
+            });
+        })
+  </script>
+</body>
+  
+</html>
