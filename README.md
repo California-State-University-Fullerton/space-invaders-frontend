@@ -1,16 +1,14 @@
-# Team CalCrypts
-Blockchain Semester Final Project
+# Hook Landing Page Theme
 
-## Team Members:
-- Samarth Halyal
-** cwid: 885208629
-**	samarthhalyal@csu.fullerton.edu
-- Pallavi Khedle
-**	cwid: 885190496
-**	pallavi.k@csu.fullerton.edu
-- Harin Khakhi
-**	cwid: 885185769
-**	harin.khakhi@csu.fullerton.edu
-- Vinay Shah
-**	cwid: 885210930
-**	vinayshah12@csu.fullerton.edu
+This landing page theme is built on [shorthand css framework](https://github.com/shorthandcss/shorthand)
+
+![preview](/preview.jpg)
+
+## Credit
+
+* Picture [unsplash](https://unsplash.com)
+* Icons [feathericons](https://feathericons.com)
+
+## LICENSE
+
+The theme is available under the MIT License.
